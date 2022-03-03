@@ -10,9 +10,20 @@
 #include <string>
 #include <cctype>
 
+typedef void (*Conversion)(char& c);
+
 // @CONCERN string, traversal, apply()
 void myforeach(std::string::const_iterator begin, std::string::const_iterator end,
     void (*apply)(char c)) {
+
+    for (auto pc = begin; pc != end; ++pc)
+        apply(*pc);
+    std::cout << '\n';
+}
+
+// @CONCERN string, traversal, apply()
+void myforeach(std::string::iterator begin, std::string::iterator end,
+    Conversion apply) {
 
     for (auto pc = begin; pc != end; ++pc)
         apply(*pc);
@@ -23,6 +34,18 @@ void myforeach(std::string::const_iterator begin, std::string::const_iterator en
 // @CONCERN output format
 void output(char c) {
     std::cout << c;
+}
+
+// upper
+// @CONCERN ctype
+void upper(char& c) {
+    c = std::toupper(c);
+}
+
+// lower
+// @CONCERN ctype
+void lower(char& c) {
+    c = std::tolower(c);
 }
 
 int main(int argc, char* argv[]) {
@@ -44,16 +67,14 @@ int main(int argc, char* argv[]) {
 
     // convert the string according to the option
     // @CONCERN "--upper", "--lower", invalid option, error handling
-    // @CONCERN string, traversal, ctype
+    // @CONCERN string, myforeach()
     if (option == "--upper") {
 
-        for (auto pc = s.begin(); pc != s.end(); ++pc)
-            *pc = std::toupper(*pc);
+        myforeach(s.begin(), s.end(), upper);
 
     } else if (option == "--lower") {
 
-        for (auto pc = s.begin(); pc != s.end(); ++pc)
-            *pc = std::tolower(*pc);
+        myforeach(s.begin(), s.end(), lower);
 
     } else {
 
