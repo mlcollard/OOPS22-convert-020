@@ -10,13 +10,19 @@
 #include <string>
 #include <cctype>
 
-// output string
-// @CONCERN string, traversal, output format
-void output(std::string::const_iterator begin, std::string::const_iterator end) {
+// @CONCERN string, traversal, apply()
+void myforeach(std::string::const_iterator begin, std::string::const_iterator end,
+    void (*apply)(char c)) {
 
     for (auto pc = begin; pc != end; ++pc)
-        std::cout << *pc;
+        apply(*pc);
     std::cout << '\n';
+}
+
+// output
+// @CONCERN output format
+void output(char c) {
+    std::cout << c;
 }
 
 int main(int argc, char* argv[]) {
@@ -56,8 +62,8 @@ int main(int argc, char* argv[]) {
     }
 
     // output converted string
-    // @CONCERN string, output()
-    output(s.cbegin(), s.cend());
+    // @CONCERN string, output(), myforeach()
+    myforeach(s.cbegin(), s.cend(), output);
 
     return 0;
 }
