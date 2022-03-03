@@ -10,6 +10,15 @@
 #include <string>
 #include <cctype>
 
+// output string
+// @CONCERN string, traversal, output format
+void output(std::string::const_iterator begin, std::string::const_iterator end) {
+
+    for (auto pc = begin; pc != end; ++pc)
+        std::cout << *pc;
+    std::cout << '\n';
+}
+
 int main(int argc, char* argv[]) {
 
     // requires conversion option and string
@@ -47,10 +56,8 @@ int main(int argc, char* argv[]) {
     }
 
     // output converted string
-    // @CONCERN string, traversal, output format
-    for (auto pc = s.cbegin(); pc != s.cend(); ++pc)
-        std::cout << *pc;
-    std::cout << '\n';
+    // @CONCERN string, output()
+    output(s.cbegin(), s.cend());
 
     return 0;
 }
