@@ -30,24 +30,6 @@ void myforeach(std::string::iterator begin, std::string::iterator end,
     std::cout << '\n';
 }
 
-// output
-// @CONCERN output format
-void output(char c) {
-    std::cout << c;
-}
-
-// upper
-// @CONCERN ctype
-void upper(char& c) {
-    c = std::toupper(c);
-}
-
-// lower
-// @CONCERN ctype
-void lower(char& c) {
-    c = std::tolower(c);
-}
-
 int main(int argc, char* argv[]) {
 
     // requires conversion option and string
@@ -70,11 +52,11 @@ int main(int argc, char* argv[]) {
     Conversion conversion = nullptr;
     if (option == "--upper") {
 
-        conversion = upper;
+        conversion = [](char& c) { c = std::toupper(c); };
 
     } else if (option == "--lower") {
 
-        conversion = lower;
+        conversion = [](char& c) { c = std::tolower(c); };
 
     } else {
 
@@ -88,7 +70,7 @@ int main(int argc, char* argv[]) {
 
     // output converted string
     // @CONCERN string, output(), myforeach()
-    myforeach(s.cbegin(), s.cend(), output);
+    myforeach(s.cbegin(), s.cend(), [](char c) { std::cout << c; });
 
     return 0;
 }
