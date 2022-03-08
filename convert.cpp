@@ -67,7 +67,7 @@ int main(int argc, char* argv[]) {
 
     // convert the string according to the option
     // @CONCERN "--upper", "--lower", invalid option, error handling
-    // @CONCERN string, myforeach()
+    // @CONCERN string, myforeach(), upper(), lower()
     if (option == "--upper") {
 
         myforeach(s.begin(), s.end(), upper);
